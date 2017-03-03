@@ -19,7 +19,6 @@ namespace MMMMM
         int note_value = 0;
         System.Threading.Timer timer;
         SoundPlayer player = new SoundPlayer();
-        SoundPlayer met_player = new SoundPlayer();
         public MainWindow()
         {
             InitializeComponent();
