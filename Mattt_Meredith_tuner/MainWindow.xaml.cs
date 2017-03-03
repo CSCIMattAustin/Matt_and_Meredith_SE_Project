@@ -3,26 +3,32 @@ using System.Media;
 using System.Windows.Controls;
 using System.Timers;
 using System.Threading;
+using System.Windows.Threading;
+using System.ComponentModel;
+using System;
 //using System.Windows.Forms.Timer;
 
 
 namespace MMMMM
 {
+    public delegate void MET();
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        Thread t;
+        public Thread t;
         bool Start_Select = false;
         int bpm;
         int note_value = 0;
-        System.Threading.Timer timer;
+        
+        // System.Threading.Timer timer;
         SoundPlayer player = new SoundPlayer();
         public MainWindow()
         {
             InitializeComponent();
             SoundPlayer player = new SoundPlayer();
+            t = new Thread(() => { Thread_task(); });
         }
 
         private void noteBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -168,15 +174,19 @@ namespace MMMMM
         {
             Start_Select = true;
 
+            // START.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle,
+            //  new MET(Thread_task));
+            t.Start();
+
+        }
+        private void Thread_task()
+        {
+            t.Join();
             while (Start_Select)
             {
                 System.Console.Beep(300, 100);
                 Thread.Sleep(60000 / bpm);
             }
-        }
-        public void Thread_task()
-        {
-
         }
     }
 }
