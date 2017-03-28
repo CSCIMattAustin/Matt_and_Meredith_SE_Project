@@ -18,10 +18,12 @@ namespace MMMMM
     public partial class MainWindow : Window
     {
         public Thread t;
+        public Thread NOTE;
         bool Start_Select = false;
         int bpm;
         int note_value = 0;
-        
+        int beep_value = 0;
+
         // System.Threading.Timer timer;
         SoundPlayer player = new SoundPlayer();
         public MainWindow()
@@ -29,6 +31,7 @@ namespace MMMMM
             InitializeComponent();
             SoundPlayer player = new SoundPlayer();
             t = new Thread(() => { Thread_task(); });
+            NOTE = new Thread(() => { NoteGenerator(); });
         }
 
         private void noteBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -40,77 +43,95 @@ namespace MMMMM
             }
             else if (noteBox.SelectedIndex == 1)
             {
-                player.Stop();
-                player.SoundLocation = @"G:\CSCI352\MMMMM\A_NOTE.wav";
 
+                beep_value = 220;
             }
             else if (noteBox.SelectedIndex == 2)
             {
-                player.Stop();
-                player.SoundLocation = @"G:\CSCI352\MMMMM\A#_NOTE.wav";
+                beep_value = 223;
+
+                // player.Stop();
+                //player.SoundLocation = @"G:\CSCI352\MMMMM\A#_NOTE.wav";
 
             }
             else if (noteBox.SelectedIndex == 3)
             {
-                player.Stop();
-                player.SoundLocation = @"G:\CSCI352\MMMMM\B_NOTE.wav";
+                beep_value = 246;
+                //player.Stop();
+                // player.SoundLocation = @"G:\CSCI352\MMMMM\B_NOTE.wav";
 
             }
             else if (noteBox.SelectedIndex == 4)
             {
-                player.Stop();
-                player.SoundLocation = @"G:\CSCI352\MMMMM\C_NOTE.wav";
+                beep_value = 261;
+                //player.Stop();
+                // player.SoundLocation = @"G:\CSCI352\MMMMM\C_NOTE.wav";
 
             }
             else if (noteBox.SelectedIndex == 5)
             {
-                player.Stop();
-                player.SoundLocation = @"G:\CSCI352\MMMMM\C#_NOTE.wav";
+                beep_value = 277;
+                //player.Stop();
+                //player.SoundLocation = @"G:\CSCI352\MMMMM\C#_NOTE.wav";
 
             }
             else if (noteBox.SelectedIndex == 6)
             {
-                player.Stop();
-                player.SoundLocation = @"G:\CSCI352\MMMMM\D_NOTE.wav";
+                beep_value = 293;
+                // player.Stop();
+                //player.SoundLocation = @"G:\CSCI352\MMMMM\D_NOTE.wav";
 
             }
             else if (noteBox.SelectedIndex == 7)
             {
-                player.Stop();
-                player.SoundLocation = @"G:\CSCI352\MMMMM\D#_NOTE.wav";
+                beep_value = 311;
+                //player.Stop();
+                //player.SoundLocation = @"G:\CSCI352\MMMMM\D#_NOTE.wav";
 
             }
             else if (noteBox.SelectedIndex == 8)
             {
-                player.Stop();
-                player.SoundLocation = @"G:\CSCI352\MMMMM\E_NOTE.wav";
+                beep_value = 329;
+                // player.Stop();
+                //player.SoundLocation = @"G:\CSCI352\MMMMM\E_NOTE.wav";
 
             }
             else if (noteBox.SelectedIndex == 9)
             {
-                player.Stop();
-                player.SoundLocation = @"G:\CSCI352\MMMMM\F_NOTE.wav";
+                beep_value = 349;
+                ////player.Stop();
+                // player.SoundLocation = @"G:\CSCI352\MMMMM\F_NOTE.wav";
 
             }
             else if (noteBox.SelectedIndex == 10)
             {
-                player.Stop();
-                player.SoundLocation = @"G:\CSCI352\MMMMM\F#_NOTE.wav";
+                beep_value = 369;
+                // player.Stop();
+                //player.SoundLocation = @"G:\CSCI352\MMMMM\F#_NOTE.wav";
 
             }
             else if (noteBox.SelectedIndex == 11)
             {
-                player.Stop();
-                player.SoundLocation = @"G:\CSCI352\MMMMM\G_NOTE.wav";
+                beep_value = 391;
+                //player.Stop();
+                //player.SoundLocation = @"G:\CSCI352\MMMMM\G_NOTE.wav";
 
             }
             else if (noteBox.SelectedIndex == 12)
             {
-                player.Stop();
-                player.SoundLocation = @"G:\CSCI352\MMMMM\G#_NOTE.wav";
+                beep_value = 415;
+                // player.Stop();
+                //player.SoundLocation = @"G:\CSCI352\MMMMM\G#_NOTE.wav";
 
             }
         }
+
+        //                while (noteButton.IsPressed != true)
+        // {
+        //     Console.Beep(220, 10);
+        //player.Stop();
+        //player.SoundLocation = @"G:\CSCI352\MMMMM\A_NOTE.wav";
+        //  }
 
         private void tempButton_Click(object sender, RoutedEventArgs e)
         {
@@ -142,7 +163,7 @@ namespace MMMMM
 
         private void START_Click(object sender, RoutedEventArgs e)
         {
-            player.PlayLooping();
+            NOTE.Start();
         }
         private void PlayBeat(object soundToPlay)
         {
@@ -187,6 +208,15 @@ namespace MMMMM
                 System.Console.Beep(300, 100);
                 Thread.Sleep(60000 / bpm);
             }
+        }
+        private void NoteGenerator()
+        {
+            NOTE.Join();
+            while (noteButton.IsPressed != true)  //comment//comment/////
+            {
+                Console.Beep(beep_value, 10);
+            }
+            NOTE.Abort();
         }
     }
 }
