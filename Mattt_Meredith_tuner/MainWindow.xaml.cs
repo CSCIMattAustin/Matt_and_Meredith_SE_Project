@@ -1,12 +1,10 @@
 ﻿using System.Windows;
-using System.Media;
 using System.Windows.Controls;
 using System.Timers;
 using System.Threading;
-using System.Windows.Threading;
-using System.ComponentModel;
 using System;
-//using System.Windows.Forms.Timer;
+using System.ComponentModel;
+
 
 
 namespace MMMMM
@@ -17,6 +15,7 @@ namespace MMMMM
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool NOTE_SELECT = false;
         public Thread t;
         public Thread NOTE;
         bool Start_Select = false;
@@ -25,13 +24,21 @@ namespace MMMMM
         int beep_value = 0;
 
         // System.Threading.Timer timer;
-        SoundPlayer player = new SoundPlayer();
+        //SoundPlayer player = new SoundPlayer();
         public MainWindow()
         {
             InitializeComponent();
-            SoundPlayer player = new SoundPlayer();
+            //SoundPlayer player = new SoundPlayer();
             t = new Thread(() => { Thread_task(); });
             NOTE = new Thread(() => { NoteGenerator(); });
+            Closing += CLOSE_WINDOW();
+        }
+
+        private CancelEventHandler CLOSE_WINDOW()
+        {
+            
+            
+            return OnWindowClosing;
         }
 
         private void noteBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -105,12 +112,21 @@ namespace MMMMM
         private void tempButton_Click(object sender, RoutedEventArgs e)
         {
             Start_Select = false;
-            t.Abort();
+            //t.
         }
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            t.Abort();
+            NOTE.Abort();
+            NOTE.Interrupt();
 
+            Console.Beep(beep_value, 1);
+            NOTE.Abort();
+            NOTE.Interrupt();
+        }
         private void noteButton_Click(object sender, RoutedEventArgs e)
         {
-            player.Stop();
+            NOTE_SELECT = false;
         }
 
         private void tempoBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -132,12 +148,19 @@ namespace MMMMM
 
         private void START_Click(object sender, RoutedEventArgs e)
         {
-            NOTE.Start();
+            try
+            {
+                    NOTE.Start();
+            }
+            catch(System.Threading.ThreadStateException TSE)
+            {
+                Console.WriteLine(TSE.Message);
+            }
         }
         private void PlayBeat(object soundToPlay)
         {
-            SoundPlayer currentSound = (SoundPlayer)soundToPlay;
-            currentSound.PlaySync();
+            //SoundPlayer currentSound = (SoundPlayer)soundToPlay;
+           // currentSound.PlaySync();
         }
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -156,7 +179,7 @@ namespace MMMMM
 
         public void HandleTimerElapsed(object sender, ElapsedEventArgs e)
         {
-            player.PlaySync();
+            //player.PlaySync();
 
         }
 
@@ -166,12 +189,17 @@ namespace MMMMM
 
             // START.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle,
             //  new MET(Thread_task));
-            t.Start();
-
+            try
+            {
+                t.Start();
+            }
+            catch(ThreadStateException TSE)
+            {
+                Console.WriteLine(TSE.Message);
+            }
         }
         private void Thread_task()
         {
-            t.Join();
             while (Start_Select)
             {
                 System.Console.Beep(300, 100);
@@ -180,12 +208,21 @@ namespace MMMMM
         }
         private void NoteGenerator()
         {
-            NOTE.Join();
-            while (noteButton.IsPressed != true || noteBox.IsDropDownOpen != true) 
+            NOTE_SELECT = true;
+            while (NOTE_SELECT && NOTE.IsAlive) 
             {
-                Console.Beep(beep_value, 10);
+                try
+                {
+                    Console.Beep(beep_value, 10000);
+
+                }
+                catch(System.ArgumentOutOfRangeException a)
+                {
+                    Console.WriteLine(a.Message);
+                }
+
             }
-            NOTE.Abort();
+            
         }
     }
 }
