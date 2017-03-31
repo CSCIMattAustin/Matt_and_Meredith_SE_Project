@@ -15,10 +15,9 @@ namespace Mattt_Meredith_tuner
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
         public static void Main()
         {
-            Mattt_Meredith_tuner.App app = new Mattt_Meredith_tuner.App();
+            App app = new App();
             app.InitializeComponent();
             app.Run();
         }
-
     }
 }

@@ -11,9 +11,7 @@ using System.ComponentModel;
 namespace MMMMM
 {
     public delegate void MET();
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         //Microphone mc;
@@ -25,27 +23,21 @@ namespace MMMMM
         int note_value = 0;
         int beep_value = 0;
 
-        // System.Threading.Timer timer;
-        //SoundPlayer player = new SoundPlayer();
         public MainWindow()
         {
             InitializeComponent();
-            //SoundPlayer player = new SoundPlayer();
             t = new Thread(() => { Thread_task(); });
             NOTE = new Thread(() => { NoteGenerator(); });
             Closing += CLOSE_WINDOW();
         }
 
         private CancelEventHandler CLOSE_WINDOW()
-        {
-            
-            
+        {    
             return OnWindowClosing;
         }
 
         private void noteBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             if (noteBox.SelectedIndex == 0)
             {
                 beep_value = 0;
@@ -114,21 +106,23 @@ namespace MMMMM
         private void tempButton_Click(object sender, RoutedEventArgs e)
         {
             Start_Select = false;
-            //t.
         }
         public void OnWindowClosing(object sender, CancelEventArgs e)
         {
             t.Abort();
             NOTE.Abort();
             NOTE.Interrupt();
+
             if (beep_value > 36)
             {
                 Console.Beep(beep_value, 1);
             }
+
             else
             {
                 Console.Beep(37, 1);
             }
+
             NOTE.Abort();
             NOTE.Interrupt();
         }
@@ -151,7 +145,6 @@ namespace MMMMM
             {
                 note_value = 4;
             }
-
         }
 
         private void START_Click(object sender, RoutedEventArgs e)
@@ -160,7 +153,8 @@ namespace MMMMM
             {
                     NOTE.Start();
             }
-            catch(System.Threading.ThreadStateException TSE)
+
+            catch(ThreadStateException TSE)
             {
                 Console.WriteLine(TSE.Message);
             }
@@ -174,15 +168,16 @@ namespace MMMMM
         {
             bpm = (int)slider.Value * note_value;
             string _value = ((int)slider.Value).ToString();
+
             try
             {
                 textBlock1.Text = _value;
             }
-            catch (System.NullReferenceException NRE)
-            {
-                System.Console.WriteLine(NRE.Message);
-            }
 
+            catch (NullReferenceException NRE)
+            {
+                Console.WriteLine(NRE.Message);
+            }
         }
 
         public void HandleTimerElapsed(object sender, ElapsedEventArgs e)
@@ -194,8 +189,7 @@ namespace MMMMM
         private void button_Click(object sender, RoutedEventArgs e)
         {
             Start_Select = true;
-            // START.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle,
-            //  new MET(Thread_task));
+
             try
             {
                 t.Start();
@@ -211,8 +205,6 @@ namespace MMMMM
             {
                 circlegreen.Visibility = Visibility.Visible;
             });
-            
-
         }
         private void HIDE()
         {
@@ -223,8 +215,7 @@ namespace MMMMM
             });
         }
         private void Thread_task()
-        {
-            
+        {        
             while (Start_Select)
             {
                 SHOW();
@@ -244,13 +235,12 @@ namespace MMMMM
                     Console.Beep(beep_value, 10000);
 
                 }
+
                 catch(System.ArgumentOutOfRangeException a)
                 {
                     Console.WriteLine(a.Message);
                 }
-
-            }
-            
+            }       
         }
     }
 }
