@@ -3,8 +3,9 @@ using System.Windows.Controls;
 using System.Timers;
 using System.Threading;
 using System;
+using System.Diagnostics;
 using System.ComponentModel;
-
+//using Microsoft.Xna.FrameWork;
 
 
 namespace MMMMM
@@ -15,6 +16,7 @@ namespace MMMMM
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Microphone mc;
         bool NOTE_SELECT = false;
         public Thread t;
         public Thread NOTE;
@@ -119,8 +121,14 @@ namespace MMMMM
             t.Abort();
             NOTE.Abort();
             NOTE.Interrupt();
-
-            Console.Beep(beep_value, 1);
+            if (beep_value > 36)
+            {
+                Console.Beep(beep_value, 1);
+            }
+            else
+            {
+                Console.Beep(37, 1);
+            }
             NOTE.Abort();
             NOTE.Interrupt();
         }
@@ -186,7 +194,6 @@ namespace MMMMM
         private void button_Click(object sender, RoutedEventArgs e)
         {
             Start_Select = true;
-
             // START.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle,
             //  new MET(Thread_task));
             try
@@ -198,17 +205,38 @@ namespace MMMMM
                 Console.WriteLine(TSE.Message);
             }
         }
+        private void SHOW()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                circlegreen.Visibility = Visibility.Visible;
+            });
+            
+
+        }
+        private void HIDE()
+        {
+
+            Dispatcher.Invoke(() =>
+            {
+                circlegreen.Visibility = Visibility.Collapsed;
+            });
+        }
         private void Thread_task()
         {
+            
             while (Start_Select)
             {
-                System.Console.Beep(300, 100);
+                SHOW();
+                Console.Beep(300, 100);
+                HIDE();
                 Thread.Sleep(60000 / bpm);
             }
         }
         private void NoteGenerator()
         {
             NOTE_SELECT = true;
+            
             while (NOTE_SELECT && NOTE.IsAlive) 
             {
                 try
