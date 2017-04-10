@@ -7,8 +7,14 @@
         mc:Ignorable="d"
         Title="Meredith and Matt's Tuner" Height="350" Width="525">
     <Grid Name="GRID">
-        <Rectangle Fill="Black" HorizontalAlignment="Left" Height="321" Margin="-1,-2,0,0" Stroke="Black"  VerticalAlignment="Top" Width="518"/>
-        <ComboBox x:Name="noteBox"  HorizontalAlignment="Left" Margin="25,25,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="noteBox_SelectionChanged">
+        <Rectangle Fill="Black" Height="320" Margin="-1,-2,-2,0" Stroke="Black"  VerticalAlignment="Top"/>
+        <Border x:Name ="mainBorder" BorderBrush="Green" BorderThickness="15" HorizontalAlignment="Left" Width="507" Margin="0,0,0,1">
+            <Label x:Name="label3">
+                <Label x:Name="label4" Content="Label" Height="31" Width="191"/>
+            </Label>
+
+        </Border>
+        <ComboBox x:Name="noteBox"  HorizontalAlignment="Left" Margin="37,188,0,0" VerticalAlignment="Top" Width="174" SelectionChanged="noteBox_SelectionChanged">
             <ComboBoxItem Content="Please Select a Note" IsSelected="True"/>
             <ComboBoxItem Content="A" />
             <ComboBoxItem Content="A#/B-flat"/>
@@ -23,22 +29,17 @@
             <ComboBoxItem Content="G"/>
             <ComboBoxItem Content="G#/A-flat"/>
         </ComboBox>
-        
-        <Button x:Name="tempButton" Content="Stop" HorizontalAlignment="Left" Margin="26,123,0,0" VerticalAlignment="Top" Width="75" Click="tempButton_Click"/>
-        <Button x:Name="noteButton" Content="Stop" HorizontalAlignment="Left" Margin="24,52,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.579,1.05" Click="noteButton_Click"/>
+        <Button x:Name="tempButton" Content="Stop" HorizontalAlignment="Left" Margin="375,227,0,0" VerticalAlignment="Top" Width="75" Click="tempButton_Click"/>
+        <Button x:Name="noteButton" Content="Stop" HorizontalAlignment="Left" Margin="136,227,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.579,1.05" Click="noteButton_Click"/>
 
-        <ComboBox x:Name="tempoBox" HorizontalAlignment="Left" Margin="25,96,0,0" VerticalAlignment="Top" Width="173" SelectionChanged="tempoBox_SelectionChanged">
-            <ComboBoxItem Content="Please Select a Note Value" IsSelected="True"/>
-            <ComboBoxItem Content="Quarter Note" />
-            <ComboBoxItem Content="Half Note" />
-            <ComboBoxItem Content="Whole Note" />
-        </ComboBox>
-        <Button x:Name="START" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="122,52,0,0" Click="START_Click"/>
-        <Button x:Name="button" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="123,123,0,0" Click="button_Click"/>
-        <Slider x:Name="slider" HorizontalAlignment="Right" Margin="0,0,317,89" RenderTransformOrigin="4.167,7.556" Height="70" VerticalAlignment="Bottom" Width="160" ValueChanged="slider_ValueChanged" Maximum ="208" Minimum="40" />
-        <TextBlock x:Name="textBlock1"  HorizontalAlignment="Left" TextWrapping="Wrap" TextAlignment="Center" Background ="Gray" Text="40" VerticalAlignment="Top" Margin="92,180,0,0" Width="34"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <TextBlock x:Name="time_interval" Background="LightYellow" HorizontalAlignment="Left" Margin="176,203,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
-        <Image x:Name="circlegreen" Source="G:\CSCI352\MMMMM\MMMMM\Matt_and_Meredith_SE_Project\circlegreen.jpg" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="359,25,0,0"/>
+        <Button x:Name="START" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="37,227,0,0" Click="START_Click"/>
+        <Button x:Name="button" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="279,227,0,0" Click="button_Click"/>
+        <Slider x:Name="slider" Foreground="Green" TickFrequency="5" TickPlacement="BottomRight" HorizontalAlignment="Right" Margin="0,0,67,92" RenderTransformOrigin="4.167,7.556" Height="39" VerticalAlignment="Bottom" Width="174" ValueChanged="slider_ValueChanged" Maximum ="208" Minimum="40" />
+        <TextBlock x:Name="textBlock1" FontSize="75"  HorizontalAlignment="Left" TextWrapping="Wrap" TextAlignment="Center" Background ="Green" Text="40" VerticalAlignment="Top" Margin="276,52,0,0" Width="174" Height="105"/>
+        <Label x:Name="label" Foreground="Green" FontSize="15" FontWeight="ExtraBold" Content="     Beats per minute" HorizontalAlignment="Left" VerticalAlignment="Bottom" RenderTransformOrigin="7.895,1.462" Margin="276,0,0,272" Width="174"/>
+        <Label x:Name="label1" Background="Black" FontWeight="ExtraBold" FontSize="15" Foreground="Green" Content="         Metronome" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.263,3.769" Margin="279,157,0,0" Width="171" Height="31"/>
+        <TextBlock x:Name="notetext" Background="Green" FontSize="75" HorizontalAlignment="Left" TextWrapping="Wrap" Text="  ___" VerticalAlignment="Top" Margin="37,52,0,0" Height="105" Width="174"/>
+        <Label x:Name="label2" Foreground="Green" FontWeight="ExtraBold" FontSize="15" Content="Note Generator" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="64,157,0,0" Width="174" Height="26"/>
+      
     </Grid>
 </Window>
