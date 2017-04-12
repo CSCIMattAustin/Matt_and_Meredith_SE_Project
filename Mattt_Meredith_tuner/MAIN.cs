@@ -1,11 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Timers;
-using System.Threading;
-using System.Windows.Controls.Primitives;
-using System.Diagnostics;
-using System.ComponentModel;
+﻿using MMMMM;
+using System.Windows;
 using System;
+using System.Windows.Controls;
 
 namespace Mattt_Meredith_tuner
 {
@@ -15,81 +11,110 @@ namespace Mattt_Meredith_tuner
         [System.STAThreadAttribute()]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
+
         public static void Main()
         {
             App app = new App();
 
-            app.InitializeComponent();
-            /*   var m = new MessageBox();
-               m.Show("Would you like to go with the original version?", "Select yes or no", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
-               if(MessageBoxResult == MessageBoxResult.Yes)*/
+            Window w = new Opener();
+            ThemeFactory opener = new ConcreteFactoryOpener();
+
+            ThemeFactory orig = new ConcreteFactoryOriginal();
+            ThemeFactory cute = new ConcreteFactoryCute();
+
+            Client opClient = new Client(opener);
+
+            Client oClient = new Client(orig);
+            Client cClient = new Client(cute);
+
+            Opener o = (Opener)opClient.runWindow();
+            MainWindow m = (MainWindow)oClient.runWindow();
+            version2 v = (version2)cClient.runWindow();
+            o.Show();
             app.Run();
+
+        }
+
+
+    }
+    
+
+
+    abstract class ThemeFactory
+    {
+        public abstract WindowProduct createProduct();
+    }
+
+    class ConcreteFactoryOriginal : ThemeFactory
+    {
+        public override WindowProduct createProduct()
+        {
+            return new ConcreteProductOriginal();
         }
     }
 
-//    abstract class ThemeFactory
-//    {
-//        public abstract WindowProduct createProduct();
-//    }
+    class ConcreteFactoryCute : ThemeFactory
+    {
+        public override WindowProduct createProduct()
+        {
+            return new ConcreteProductCute();
+        }
+    }
 
-//    class ConcreteFactoryOriginal : ThemeFactory
-//    {
-//        public override WindowProduct createProduct()
-//        {
-//            return new ConcreteProductOriginal();
-//        }
-//    }
+    class ConcreteFactoryOpener : ThemeFactory
+    {
+        public override WindowProduct createProduct()
+        {
+            return new ConcreteProductOpener();
+        }
+    }
+    abstract class WindowProduct
+    {
+        public abstract Window window();
+    }
 
-//    class ConcreteFactoryCute : ThemeFactory
-//    {
-//        public override WindowProduct createProduct()
-//        {
-//            return new ConcreteProductCute();
-//        }
-//    }
+    class ConcreteProductOriginal : WindowProduct
+    {
+        public override Window window()
+        {
+            MainWindow m = new MainWindow();
 
-//    abstract class WindowProduct
-//    {
-//        public abstract Window window();
-//    }
+            return m;
+        }
+    }
 
-//    class ConcreteProductOriginal : WindowProduct
-//    {
-//        public override Window window()
-//        {
-//            MainWindow m = new MainWindow();
+    class ConcreteProductCute : WindowProduct
+    {
+        public override Window window()
+        {
+            MMMMM.version2 w = new version2();
 
-//            m.Show();
+            return w;
+        }
+    }
+    class ConcreteProductOpener : WindowProduct
+    {
+        public override Window window()
+        {
+            Opener w = new Opener();
 
-//            return m;
-//        }
-//    }
+            return w;
+        }
+    }
 
-//    class ConcreteProductCute : WindowProduct
-//    {
-//        public override Window window()
-//        {
-//            Window1 w = new Window1();
+    class Client
+    {
+        private WindowProduct p;
 
-//            w.Show();
+        public Client(ThemeFactory t)
+        {
+            p = t.createProduct();
+        }
 
-//            return w;
-//        }
-//    }
+        public Window runWindow()
+        {
+            return p.window();
+        }
 
-//    class Client
-//    {
-//        private WindowProduct p;
-        
-//        public Client(ThemeFactory t)
-//        {
-//            p = t.createProduct();
-//        }
-
-//        public Window runWindow()
-//        {
-//            return p.window();
-//        }
-
-//    }
+    }
 }

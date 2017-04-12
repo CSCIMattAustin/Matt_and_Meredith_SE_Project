@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:MMMMM"
         mc:Ignorable="d"
         Title="version2" Height="350" Width="523">
-    <Grid Name="Grid2">
-        <Rectangle Fill="Beige" HorizontalAlignment="Left" Height="320" Margin="-1,-2,0,0" Stroke="Black"  VerticalAlignment="Top" Width="520"/>
-        <Border x:Name ="cuteBorder" BorderBrush="Aquamarine" BorderThickness="15" Height="317" VerticalAlignment="Top" HorizontalAlignment="Left" Width="515"/>
-        <ComboBox x:Name="noteBox"  HorizontalAlignment="Left" Margin="25,25,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="noteBox_SelectionChanged">
+    <Grid Name="GRID">
+        <Rectangle Fill="Honeydew" Height="320" Margin="-1,-2,-2,0" Stroke="Black"  VerticalAlignment="Top"/>
+        <Border x:Name ="mainBorder" BorderBrush="Aquamarine" BorderThickness="15" HorizontalAlignment="Left" Width="507" Margin="0,0,0,1"/>
+        <ComboBox x:Name="noteBox"  HorizontalAlignment="Left" Margin="37,193,0,0" VerticalAlignment="Top" Width="174" SelectionChanged="v2noteBox_SelectionChanged">
             <ComboBoxItem Content="Please Select a Note" IsSelected="True"/>
             <ComboBoxItem Content="A" />
             <ComboBoxItem Content="A#/B-flat"/>
@@ -24,18 +24,16 @@
             <ComboBoxItem Content="G"/>
             <ComboBoxItem Content="G#/A-flat"/>
         </ComboBox>
-        <Button x:Name="tempButton" BorderBrush="Beige" FontWeight="ExtraBold" Foreground="Black" Background="Aquamarine" Content="Stop" HorizontalAlignment="Left" Margin="26,123,0,0" VerticalAlignment="Top" Width="75" Click="tempButton_Click"/>
-        <Button x:Name="noteButton" BorderBrush="Beige" FontWeight="ExtraBold"  Foreground="Black" Background="Aquamarine" Content="Stop" HorizontalAlignment="Left" Margin="24,52,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.579,1.05" Click="noteButton_Click"/>
-        <ComboBox x:Name="tempoBox" HorizontalAlignment="Left" Margin="25,96,0,0" VerticalAlignment="Top" Width="173" SelectionChanged="tempoBox_SelectionChanged">
-            <ComboBoxItem Content="Please Select a Note Value" IsSelected="True"/>
-            <ComboBoxItem Content="Quarter Note" />
-            <ComboBoxItem Content="Half Note" />
-            <ComboBoxItem Content="Whole Note" />
-        </ComboBox>
-        <Button x:Name="START" BorderBrush="Beige" Foreground="Black" FontWeight="ExtraBold" Background="Aquamarine" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="122,52,0,0" Click="START_Click"/>
-        <Button x:Name="button" FontWeight="ExtraBold" BorderBrush="Beige" Foreground="Black" Background="Aquamarine" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="123,123,0,0" Click="button_Click"/>
-        <Slider x:Name="slider" TickFrequency="5" TickPlacement="BottomRight" Foreground="Black" Background="Beige" HorizontalAlignment="Right" Margin="0,0,320,127" RenderTransformOrigin="4.167,7.556" Height="31" VerticalAlignment="Bottom" Width="171" ValueChanged="slider_ValueChanged" Maximum ="208" Minimum="40" />
-        <TextBlock x:Name="textBlock1"  HorizontalAlignment="Left" FontSize="75" TextWrapping="NoWrap" TextAlignment="Center" Background ="Aquamarine" VerticalAlignment="Top" Margin="300,52,0,0" Width="175" Height="103" Text="40"/>
-        <Label x:Name="label"  FontSize="15" Foreground="Aquamarine" Content="Beats per minute" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,26,0,0" Width="175" FontWeight="Bold"/>
+        <Button x:Name="temp2Button" Content="Stop" HorizontalAlignment="Left" Margin="375,232,0,0" VerticalAlignment="Top" Width="75" Click="temp2Button_Click"/>
+        <Button x:Name="noteButton2" Content="Stop" HorizontalAlignment="Left" Margin="136,232,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.579,1.05" Click="note2Button_Click"/>
+        <Button x:Name="START" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="37,232,0,0" Click="START_Click2"/>
+        <Button x:Name="button" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="276,232,0,0" Click="button2_Click"/>
+        <Slider x:Name="slider" Foreground="Aquamarine" TickFrequency="5" TickPlacement="BottomRight" HorizontalAlignment="Right" Margin="0,0,67,87" RenderTransformOrigin="4.167,7.556" Height="39" VerticalAlignment="Bottom" Width="174" ValueChanged="slider_ValueChanged2"  Maximum ="208" Minimum="40" />
+        <TextBlock x:Name="textBlock1" FontSize="75"  HorizontalAlignment="Left" TextWrapping="Wrap" TextAlignment="Center" Background ="Aquamarine" Text="40" VerticalAlignment="Top" Margin="276,52,0,0" Width="174" Height="105"/>
+        <Label x:Name="label" Foreground="Aquamarine" FontSize="15" FontWeight="ExtraBold" Content="     Beats per minute" HorizontalAlignment="Left" VerticalAlignment="Bottom" RenderTransformOrigin="7.895,1.462" Margin="276,0,0,272" Width="174"/>
+        <Label x:Name="label1" Background="Honeydew" FontWeight="ExtraBold" FontSize="15" Foreground="Aquamarine" Content="         Metronome" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.263,3.769" Margin="279,156,0,0" Width="171" Height="27"/>
+        <TextBlock x:Name="notetext" Background="Aquamarine" FontSize="75" HorizontalAlignment="Left" TextWrapping="Wrap" Text="  ___" VerticalAlignment="Top" Margin="37,52,0,0" Height="105" Width="174"/>
+        <Label x:Name="label2" Foreground="Aquamarine" FontWeight="ExtraBold" FontSize="15" Content="Note Generator" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="59,156,0,0" Width="174" Height="26"/>
+        <Label x:Name="noteLabel" Content="Note" Foreground="Aquamarine" FontWeight="ExtraBold" FontSize="15" Height="31" Width="202" Margin="99,16,214,272" />
     </Grid>
 </Window>

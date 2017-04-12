@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Timers;
 using System.Threading;
 using System;
 using System.Diagnostics;
@@ -14,18 +13,15 @@ namespace MMMMM
 {
     public delegate void MET();
 
-
-
     public partial class MainWindow : Window
     {
-
         bool NOTE_SELECT = false;
         public Thread t;
         public Thread NOTE;
         bool Start_Select = false;
         int bpm;
-        int note_value = 0;
         int beep_value = 0;
+
         public MainWindow()
         {
             bpm = 40;
@@ -45,15 +41,18 @@ namespace MMMMM
             if (noteBox.SelectedIndex == 1)
             {
                 beep_value = 220;
+
                 try
                 {
                     notetext.Text = "   A";
                 }
+
                 catch (NullReferenceException NRE)
                 {
                     Console.WriteLine(NRE.Message);
                 }
             }
+
             else if (noteBox.SelectedIndex == 2)
             {
                 beep_value = 223;
@@ -61,11 +60,13 @@ namespace MMMMM
                 {
                     notetext.Text = "  Bb";
                 }
+
                 catch (NullReferenceException NRE)
                 {
                     Console.WriteLine(NRE.Message);
                 }
             }
+
             else if (noteBox.SelectedIndex == 3)
             {
                 beep_value = 246;
@@ -73,12 +74,13 @@ namespace MMMMM
                 {
                     notetext.Text = "   B";
                 }
+
                 catch (NullReferenceException NRE)
                 {
                     Console.WriteLine(NRE.Message);
                 }
-
             }
+
             else if (noteBox.SelectedIndex == 4)
             {
                 beep_value = 261;
@@ -86,11 +88,13 @@ namespace MMMMM
                 {
                     notetext.Text = "   C";
                 }
+
                 catch (NullReferenceException NRE)
                 {
                     Console.WriteLine(NRE.Message);
                 }
             }
+
             else if (noteBox.SelectedIndex == 5)
             {
                 beep_value = 277;
@@ -98,11 +102,13 @@ namespace MMMMM
                 {
                     notetext.Text = "  C#";
                 }
+
                 catch (NullReferenceException NRE)
                 {
                     Console.WriteLine(NRE.Message);
                 }
             }
+
             else if (noteBox.SelectedIndex == 6)
             {
                 beep_value = 293;
@@ -110,11 +116,13 @@ namespace MMMMM
                 {
                     notetext.Text = "   D";
                 }
+
                 catch (NullReferenceException NRE)
                 {
                     Console.WriteLine(NRE.Message);
                 }
             }
+
             else if (noteBox.SelectedIndex == 7)
             {
                 beep_value = 311;
@@ -122,11 +130,13 @@ namespace MMMMM
                 {
                     notetext.Text = "  Eb";
                 }
+
                 catch (NullReferenceException NRE)
                 {
                     Console.WriteLine(NRE.Message);
                 }
             }
+
             else if (noteBox.SelectedIndex == 8)
             {
                 beep_value = 329;
@@ -134,11 +144,13 @@ namespace MMMMM
                 {
                     notetext.Text = "   E";
                 }
+
                 catch (NullReferenceException NRE)
                 {
                     Console.WriteLine(NRE.Message);
                 }
             }
+
             else if (noteBox.SelectedIndex == 9)
             {
                 beep_value = 349;
@@ -146,11 +158,13 @@ namespace MMMMM
                 {
                     notetext.Text = "    F";
                 }
+
                 catch (NullReferenceException NRE)
                 {
                     Console.WriteLine(NRE.Message);
                 }
             }
+
             else if (noteBox.SelectedIndex == 10)
             {
                 beep_value = 369;
@@ -158,11 +172,13 @@ namespace MMMMM
                 {
                     notetext.Text = "  F#";
                 }
+
                 catch (NullReferenceException NRE)
                 {
                     Console.WriteLine(NRE.Message);
                 }
             }
+
             else if (noteBox.SelectedIndex == 11)
             {
                 beep_value = 391;
@@ -170,11 +186,13 @@ namespace MMMMM
                 {
                     notetext.Text = "   G";
                 }
+
                 catch (NullReferenceException NRE)
                 {
                     Console.WriteLine(NRE.Message);
                 }
             }
+
             else if (noteBox.SelectedIndex == 12)
             {
                 beep_value = 415;
@@ -182,11 +200,13 @@ namespace MMMMM
                 {
                     notetext.Text = "  Ab";
                 }
+
                 catch (NullReferenceException NRE)
                 {
                     Console.WriteLine(NRE.Message);
                 }
             }
+
             else if (noteBox.SelectedIndex == 0)
             {
                 beep_value = 0;
@@ -194,6 +214,7 @@ namespace MMMMM
                 {
                     notetext.Text = "  ___ ";
                 }
+
                 catch (NullReferenceException NRE)
                 {
                     Console.WriteLine(NRE.Message);
@@ -225,12 +246,12 @@ namespace MMMMM
             NOTE.Abort();
             NOTE.Interrupt();
         }
+
         private void noteButton_Click(object sender, RoutedEventArgs e)
         {
             NOTE_SELECT = false;
             NOTE = new Thread(() => { NoteGenerator(); });
         }
-
 
         private void START_Click(object sender, RoutedEventArgs e)
         {
@@ -262,7 +283,6 @@ namespace MMMMM
             }
         }
 
-
         private void button_Click(object sender, RoutedEventArgs e)
         {
             Start_Select = true;
@@ -286,12 +306,12 @@ namespace MMMMM
         }
         private void HIDE()
         {
-
             Dispatcher.Invoke(() =>
             {
                 mainBorder.Visibility = Visibility.Collapsed;
             });
         }
+
         private void Thread_task()
         {        
             while (Start_Select)
@@ -303,6 +323,7 @@ namespace MMMMM
                 Thread.Sleep(60000 / bpm);
             }
         }
+
         private void NoteGenerator()
         {
             NOTE_SELECT = true;
@@ -315,9 +336,8 @@ namespace MMMMM
 
                 try
                 {
-                    
-                    Console.Beep(beep_value, 3000);
-                    
+                   
+                    Console.Beep(beep_value, 3000);    
                 }
                 
                 catch(ArgumentOutOfRangeException a)
@@ -328,6 +348,11 @@ namespace MMMMM
                 while (sw.ElapsedMilliseconds < 5000) ;
                 
             }       
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
 
         }
     }
