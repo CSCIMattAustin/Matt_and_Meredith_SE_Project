@@ -4,15 +4,13 @@ using System.Threading;
 using System;
 using System.Diagnostics;
 using System.ComponentModel;
-using CSCore;
-using CSCore.SoundIn;
-using CSCore.Codecs.WAV;
-using CSCore.CoreAudioAPI;
+using System.Windows.Media;
 
 namespace MMMMM
 {
     public partial class version2 : Window
     {
+        static public Slider sliderPastel = new Slider();
         bool NOTE_SELECT = false;
         public Thread t;
         public Thread NOTE;
@@ -28,6 +26,95 @@ namespace MMMMM
             NOTE = new Thread(() => { NoteGenerator2(); });
             Closing += CLOSE_WINDOW();
         }
+        public abstract class decoratorP
+        {
+            public abstract void decorate();
+        }
+
+
+        abstract class sliderDecP : decoratorP
+        {
+            public abstract override void decorate();
+        }
+
+        class DisplayColorChangerTP : sliderDecP
+        {
+
+            public TextBlock T = new TextBlock();
+            private int ind;
+            public DisplayColorChangerTP(TextBlock t, int val)
+            {
+                T = t;
+
+                ind = val%9;
+            }
+            public override void decorate()
+            {
+                if (ind == 0)
+                    T.Background = Brushes.LightGreen;
+                else if (ind == 1)
+                    T.Background = Brushes.LightCyan;
+                else if (ind == 2)
+                    T.Background = Brushes.LightBlue;
+                else if (ind == 3)
+                    T.Background = Brushes.Lavender;
+                else if (ind == 4)
+                {
+                //    try
+                //    {
+                        T.Background = Brushes.LavenderBlush;
+                    //}
+                    //catch (NullReferenceException nre)
+                    //{
+                    //    Console.WriteLine(nre.Message);
+                    //}
+                }
+                else if (ind == 5)
+                    T.Background = Brushes.MistyRose;
+                else if (ind == 6)
+                    T.Background = Brushes.Pink;
+                else if (ind == 7)
+                    T.Background = Brushes.PeachPuff;
+                else if (ind == 8)
+                    T.Background = Brushes.Moccasin;
+                else if (ind == 9)
+                    T.Background = Brushes.Cornsilk;
+            }
+        }
+
+        class DisplayColorChangerBP : sliderDecP
+        {
+            public Border border = new Border();
+            private int ind;
+            public DisplayColorChangerBP(Border b, int val)
+            {
+                border = b;
+                ind = val % 9;
+            }
+            public override void decorate()
+            {
+                if (ind == 0)
+                    border.BorderBrush = Brushes.LightGreen;
+                else if (ind == 1)
+                    border.BorderBrush = Brushes.LightCyan;
+                else if (ind == 2)
+                    border.BorderBrush = Brushes.LightBlue;
+                else if (ind == 3)
+                    border.BorderBrush = Brushes.Lavender;
+                else if (ind == 4)
+                    border.BorderBrush = Brushes.LavenderBlush;
+                else if (ind == 5)
+                    border.BorderBrush = Brushes.MistyRose;
+                else if (ind == 6)
+                    border.BorderBrush = Brushes.Pink;
+                else if (ind == 7)
+                    border.BorderBrush = Brushes.PeachPuff;
+                else if (ind == 8)
+                    border.BorderBrush = Brushes.Moccasin;
+                else if (ind == 9)
+                    border.BorderBrush = Brushes.Cornsilk;
+            }
+        }
 
         private CancelEventHandler CLOSE_WINDOW()
         {
@@ -41,7 +128,7 @@ namespace MMMMM
                 beep_value = 220;
                 try
                 {
-                    notetext.Text = "   A";
+                    notetextP.Text = "   A";
                 }
 
                 catch (NullReferenceException NRE)
@@ -55,7 +142,7 @@ namespace MMMMM
                 beep_value = 223;
                 try
                 {
-                    notetext.Text = "  Bb";
+                    notetextP.Text = "  Bb";
                 }
 
                 catch (NullReferenceException NRE)
@@ -69,7 +156,7 @@ namespace MMMMM
                 beep_value = 246;
                 try
                 {
-                    notetext.Text = "   B";
+                    notetextP.Text = "   B";
                 }
 
                 catch (NullReferenceException NRE)
@@ -83,7 +170,7 @@ namespace MMMMM
                 beep_value = 261;
                 try
                 {
-                    notetext.Text = "   C";
+                    notetextP.Text = "   C";
                 }
 
                 catch (NullReferenceException NRE)
@@ -97,7 +184,7 @@ namespace MMMMM
                 beep_value = 277;
                 try
                 {
-                    notetext.Text = "  C#";
+                    notetextP.Text = "  C#";
                 }
 
                 catch (NullReferenceException NRE)
@@ -111,7 +198,7 @@ namespace MMMMM
                 beep_value = 293;
                 try
                 {
-                    notetext.Text = "   D";
+                    notetextP.Text = "   D";
                 }
 
                 catch (NullReferenceException NRE)
@@ -125,7 +212,7 @@ namespace MMMMM
                 beep_value = 311;
                 try
                 {
-                    notetext.Text = "  Eb";
+                    notetextP.Text = "  Eb";
                 }
 
                 catch (NullReferenceException NRE)
@@ -139,7 +226,7 @@ namespace MMMMM
                 beep_value = 329;
                 try
                 {
-                    notetext.Text = "   E";
+                    notetextP.Text = "   E";
                 }
 
                 catch (NullReferenceException NRE)
@@ -153,7 +240,7 @@ namespace MMMMM
                 beep_value = 349;
                 try
                 {
-                    notetext.Text = "    F";
+                    notetextP.Text = "    F";
                 }
 
                 catch (NullReferenceException NRE)
@@ -167,7 +254,7 @@ namespace MMMMM
                 beep_value = 369;
                 try
                 {
-                    notetext.Text = "  F#";
+                    notetextP.Text = "  F#";
                 }
 
                 catch (NullReferenceException NRE)
@@ -181,7 +268,7 @@ namespace MMMMM
                 beep_value = 391;
                 try
                 {
-                    notetext.Text = "   G";
+                    notetextP.Text = "   G";
                 }
 
                 catch (NullReferenceException NRE)
@@ -195,7 +282,7 @@ namespace MMMMM
                 beep_value = 415;
                 try
                 {
-                    notetext.Text = "  Ab";
+                    notetextP.Text = "  Ab";
                 }
 
                 catch (NullReferenceException NRE)
@@ -209,7 +296,7 @@ namespace MMMMM
                 beep_value = 0;
                 try
                 {
-                    notetext.Text = "  ___ ";
+                    notetextP.Text = "  ___ ";
                 }
 
                 catch (NullReferenceException NRE)
@@ -266,14 +353,22 @@ namespace MMMMM
             }
         }
 
-        private void slider_ValueChanged2(object sender, RoutedPropertyChangedEventArgs<double> e)
+        public void slider_ValueChanged2(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            bpm = (int)slider.Value;
-            string _value = ((int)slider.Value).ToString();
+            bpm = (int)sliderPastel.Value;
+            string _value = ((int)sliderPastel.Value).ToString();
+
+            decoratorP d = new DisplayColorChangerTP(textBlockP, (int)sliderPastel.Value);
+            decoratorP c = new DisplayColorChangerTP(notetextP, (int)sliderPastel.Value);
+            decoratorP b = new DisplayColorChangerBP(mainBorderP, (int)sliderPastel.Value);
+            d.decorate();
+            c.decorate();
+            b.decorate();
+
 
             try
             {
-                textBlock1.Text = _value;
+                textBlockP.Text = _value;
             }
 
             catch (NullReferenceException NRE)
@@ -302,7 +397,7 @@ namespace MMMMM
         {
             Dispatcher.Invoke(() =>
             {
-                mainBorder.Visibility = Visibility.Visible;
+                mainBorderP.Visibility = Visibility.Visible;
             });
         }
 
@@ -310,7 +405,7 @@ namespace MMMMM
         {
             Dispatcher.Invoke(() =>
             {
-                mainBorder.Visibility = Visibility.Collapsed;
+                mainBorderP.Visibility = Visibility.Collapsed;
             });
         }
 

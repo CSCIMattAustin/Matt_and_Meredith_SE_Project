@@ -2,12 +2,9 @@
 using System.Windows.Controls;
 using System.Threading;
 using System;
+using System.Windows.Media;
 using System.Diagnostics;
 using System.ComponentModel;
-using CSCore;
-using CSCore.SoundIn;
-using CSCore.Codecs.WAV;
-using CSCore.CoreAudioAPI;
 
 namespace MMMMM
 {
@@ -15,6 +12,7 @@ namespace MMMMM
 
     public partial class MainWindow : Window
     {
+        static public Slider slider = new Slider();    
         bool NOTE_SELECT = false;
         public Thread t;
         public Thread NOTE;
@@ -30,6 +28,90 @@ namespace MMMMM
             NOTE = new Thread(() => { NoteGenerator(); });
             Closing += CLOSE_WINDOW();
         }
+
+        public abstract class decorator
+        {
+            public abstract void decorate();
+        }
+
+
+        abstract class sliderDec : decorator
+        {
+            public abstract override void decorate();
+        }
+
+        class DisplayColorChangerT : sliderDec
+        {
+            
+            public TextBlock text = new TextBlock();
+            private int ind;
+            public DisplayColorChangerT(TextBlock t, int val)
+            {
+                text = t;
+                ind = val%9;
+            }
+            public override void decorate()
+            {
+                if (ind == 0)
+                    text.Background = Brushes.Green;
+                else if (ind == 1)
+                    text.Background = Brushes.RoyalBlue;
+                else if (ind == 2)
+                    text.Background = Brushes.DarkBlue;
+                else if (ind == 3)
+                    text.Background = Brushes.Indigo;
+                else if (ind == 4)
+                    text.Background = Brushes.Purple;
+                else if (ind == 5)
+                    text.Background = Brushes.MediumVioletRed;
+                else if (ind == 6)
+                    text.Background = Brushes.Red;
+                else if (ind == 7)
+                    text.Background = Brushes.OrangeRed;
+                else if (ind == 8)
+                    text.Background = Brushes.Orange;
+                else if (ind == 9)
+                    text.Background = Brushes.Gold;
+            }
+        }
+
+        class DisplayColorChangerB : sliderDec
+        {
+
+            public Border border = new Border();
+            private int ind;
+            public DisplayColorChangerB(Border b, int val)
+            {
+                border = b;
+                ind = val % 9;
+            }
+            public override void decorate()
+            {
+                if (ind == 0)
+                    border.BorderBrush = Brushes.Green;
+                else if (ind == 1)
+                    border.BorderBrush = Brushes.RoyalBlue;
+                else if (ind == 2)
+                    border.BorderBrush = Brushes.DarkBlue;
+                else if (ind == 3)
+                    border.BorderBrush = Brushes.Indigo;
+                else if (ind == 4)
+                    border.BorderBrush = Brushes.Purple;
+                else if (ind == 5)
+                    border.BorderBrush = Brushes.MediumVioletRed;
+                else if (ind == 6)
+                    border.BorderBrush = Brushes.Red;
+                else if (ind == 7)
+                    border.BorderBrush = Brushes.OrangeRed;
+                else if (ind == 8)
+                    border.BorderBrush = Brushes.Orange;
+                else if (ind == 9)
+                    border.BorderBrush = Brushes.Gold;
+            }
+        }
+
+
+
 
         private CancelEventHandler CLOSE_WINDOW()
         {    
@@ -267,10 +349,16 @@ namespace MMMMM
             }
         }
 
-        private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        public void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             bpm = (int)slider.Value;
             string _value = ((int)slider.Value).ToString();
+            decorator d = new DisplayColorChangerT(textBlock1, (int)slider.Value);
+            decorator c = new DisplayColorChangerT(notetext, (int)slider.Value);
+            decorator b = new DisplayColorChangerB(mainBorder, (int)slider.Value);
+            d.decorate();
+            c.decorate();
+            b.decorate();
 
             try
             {

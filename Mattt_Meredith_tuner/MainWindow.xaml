@@ -28,7 +28,6 @@
         <Button x:Name="noteButton" Content="Stop" HorizontalAlignment="Left" Margin="136,232,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.579,1.05" Click="noteButton_Click"/>
         <Button x:Name="START" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="37,232,0,0" Click="START_Click"/>
         <Button x:Name="button" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="276,232,0,0" Click="button_Click"/>
-        <Slider x:Name="slider" Foreground="Green" TickFrequency="5" TickPlacement="BottomRight" HorizontalAlignment="Right" Margin="0,0,67,87" RenderTransformOrigin="4.167,7.556" Height="39" VerticalAlignment="Bottom" Width="174" ValueChanged="slider_ValueChanged" Maximum ="208" Minimum="40" />
         <TextBlock x:Name="textBlock1" FontSize="75"  HorizontalAlignment="Left" TextWrapping="Wrap" TextAlignment="Center" Background ="Green" Text="40" VerticalAlignment="Top" Margin="276,52,0,0" Width="174" Height="105"/>
         <Label x:Name="label" Foreground="Green" FontSize="15" FontWeight="ExtraBold" Content="     Beats per minute" HorizontalAlignment="Left" VerticalAlignment="Bottom" RenderTransformOrigin="7.895,1.462" Margin="276,0,0,272" Width="174"/>
         <Label x:Name="label1" Background="Black" FontWeight="ExtraBold" FontSize="15" Foreground="Green" Content="         Metronome" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.263,3.769" Margin="279,156,0,0" Width="171" Height="27"/>

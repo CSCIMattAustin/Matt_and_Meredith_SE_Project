@@ -12,8 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace Mattt_Meredith_tuner
 {
+
     /// <summary>
     /// Interaction logic for Opener.xaml
     /// </summary>
@@ -33,6 +35,5 @@ namespace Mattt_Meredith_tuner
                 this.Close();
             }
         }
-
     }
 }
